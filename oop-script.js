@@ -1,6 +1,7 @@
 //the API documentation site https://developers.themoviedb.org/3/
 
 class App {
+
     static async run() {
         const movies = await APIService.fetchMovies()
         HomePage.renderMovies(movies);
@@ -43,18 +44,17 @@ class APIService {
 }
 
 class HomePage {
-    static container = document.getElementById('container');
-    static renderMovies(movies) {
-        movies.forEach(movie => {
-            const movieDiv = document.createElement("div");
-            const movieImage = document.createElement("img");
-            movieImage.src = `${movie.backdropUrl}`;
-            const movieTitle = document.createElement("h3");
-            movieTitle.textContent = `${movie.title}`;
-            movieImage.addEventListener("click", function() {
-                Movies.run(movie);
-            });
-
+  static container = document.getElementById("container");
+  static renderMovies(movies) {
+    movies.forEach((movie) => {
+      const movieDiv = document.createElement("div");
+      const movieImage = document.createElement("img");
+      movieImage.src = `${movie.backdropUrl}`;
+      const movieTitle = document.createElement("h3");
+      movieTitle.textContent = `${movie.title}`;
+      movieDiv.addEventListener("click", function () {
+        Movies.run(movie);
+      });
             movieDiv.appendChild(movieTitle);
             movieDiv.appendChild(movieImage);
             this.container.appendChild(movieDiv);
@@ -78,59 +78,65 @@ class HomePage {
     }
 }
 
-
 class Movies {
-    static async run(movie) {
-        const movieData = await APIService.fetchMovie(movie.id)
-        MoviePage.renderMovieSection(movieData);
-        APIService.fetchActors(movieData)
-
-    }
+  static async run(movie) {
+    const movieData = await APIService.fetchMovie(movie.id);
+    MoviePage.renderMovieSection(movieData);
+    APIService.fetchActors(movieData);
+  }
 }
 
 class MoviePage {
-    static container = document.getElementById('container');
-    static renderMovieSection(movie) {
-        MovieSection.renderMovie(movie);
-    }
+  static container = document.getElementById("container");
+  static renderMovieSection(movie) {
+    MovieSection.renderMovie(movie);
+  }
+  static renderActorSection(actor) {
+    MovieSection.renderActor(actor);
+  }
 }
 
 class MovieSection {
-    static renderMovie(movie) {
-        MoviePage.container.innerHTML = `
-      <div class="row">
-        <div class="col-md-4">
-          <img id="movie-backdrop" src=${movie.backdropUrl}> 
-        </div>
-        <div class="col-md-8">
-          <h2 id="movie-title">${movie.title}</h2>
-          <p id="genres">${movie.genres}</p>
-          <p id="movie-release-date">${movie.releaseDate}</p>
-          <p id="movie-runtime">${movie.runtime}</p>
-          <h3>Overview:</h3>
-          <p id="movie-overview">${movie.overview}</p>
+  static renderMovie(movie) {
+    MoviePage.container.innerHTML = `
+      <div class="movie-header"style="--bg-img: url(${movie.backdropUrl});">
+        <div class='black-layer'>
+          <div class="row ml-5">
+            <div class="col-md-4">
+              <img id="movie-backdrop" src=${movie.backdropUrl}>
+            </div>
+            <div class="col-md-8 d-flex flex-column justify-content-center align-items-start text-white">
+              <h2 id="movie-title">${movie.title}</h2>
+              <p id="genres">${movie.genres}</p>
+              <p id="movie-release-date">${movie.releaseDate}</p>
+              <p id="movie-runtime">${movie.runtime}</p>
+              <h3>Overview:</h3>
+              <p id="movie-overview">${movie.overview}</p>
+            </div>
+          </div>
         </div>
       </div>
       <h3>Actors:</h3>
     `;
-    }
+  }
 }
 
 class Movie {
-    static BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
-    constructor(json) {
-        this.id = json.id;
-        this.title = json.title;
-        this.releaseDate = json.release_date;
-        this.runtime = json.runtime + " minutes";
-        this.overview = json.overview;
-        this.backdropPath = json.backdrop_path;
-    }
+  static BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
+  constructor(json) {
+    this.id = json.id;
+    this.title = json.title;
+    this.releaseDate = json.release_date;
+    this.runtime = json.runtime + " minutes";
+    this.overview = json.overview;
+    this.backdropPath = json.backdrop_path;
+  }
 
-    get backdropUrl() {
-        return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
-    }
+  get backdropUrl() {
+    return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
+  }
 }
+
 
 class ActorPage {
     static container = document.getElementById('container');
@@ -177,6 +183,4 @@ class Actor {
         return this.profilePath ? Actor.PROFILE_BASE_URL + this.profilePath : "";
     }
 }
-
-
 document.addEventListener("DOMContentLoaded", App.run);
