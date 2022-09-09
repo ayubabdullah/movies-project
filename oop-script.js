@@ -2,8 +2,8 @@
 
 class App {
   static async run() {
-    // const movies = await APIService.fetchMovies()
-    // HomePage.renderMovies(movies);
+    const movies = await APIService.fetchMovies()
+    HomePage.renderMovies(movies);
     const actors = await APIService.fetchActors();
     HomePage.renderActors(actors);
   }
@@ -58,7 +58,7 @@ class HomePage {
       const movieTitle = document.createElement("h3");
       movieTitle.textContent = `${movie.title}`;
       movieDiv.addEventListener("click", function () {
-        Movies.run(movie);
+        Movies.run(movie.id);
       });
       movieDiv.appendChild(movieTitle);
       movieDiv.appendChild(movieImage);
@@ -84,8 +84,9 @@ class HomePage {
 }
 
 class Movies {
-  static async run(movie) {
-    const movieData = await APIService.fetchMovie(movie.id);
+  static async run(movieId) {
+    console.log(movieId);
+    const movieData = await APIService.fetchMovie(movieId);
     MoviePage.renderMovieSection(movieData);
     APIService.fetchActors(movieData);
   }
@@ -205,8 +206,8 @@ class ActorSection {
               .slice(0, 6)
               .map((movie) => {
                 return `
-              <div class="col-md-2 col-sm-4 col-6 actor-movie text-center">
-                <img id="actor-movie-poster" class="img-border" src=${movie.backdropUrl} alt="${movie.title}">
+              <div class="col-md-2 col-sm-4 col-6 actor-movie text-center mb-5" onclick="Movies.run(${movie.id})">
+                <img id="actor-movie-poster" class="img-border" src=${movie.backdropUrl} alt=${movie.title}>
                 <p>${movie.title}</p>
               </div>
               `;
@@ -225,8 +226,8 @@ class ActorSection {
               .slice(0, 6)
               .map((crew) => {
                 return `
-              <div class="col-md-2 actor-crew text-center">
-                <img id="actor-crew-poster" class="img-border" src=${crew.backdropUrl} alt="${crew.title}">
+              <div class="col-md-2 col-sm-4 col-6 actor-crew text-center mb-5" onclick="Movies.run(${crew.id})">
+                <img id="actor-crew-poster" class="img-border" src=${crew.backdropUrl} alt=${crew.title}>
                 <p>${crew.title}</p>
               </div>
               `;
