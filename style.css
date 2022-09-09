@@ -97,3 +97,7 @@ body {
   object-fit: cover;
   object-position: center;
 }
+
+.aboutPage {
+  color: white;
+}

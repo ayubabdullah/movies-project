@@ -2,10 +2,11 @@
 
 class App {
   static async run() {
-    const movies = await APIService.fetchMovies()
-    HomePage.renderMovies(movies);
-    const actors = await APIService.fetchActors();
-    HomePage.renderActors(actors);
+    AboutPage.renderAboutPage()
+    // const movies = await APIService.fetchMovies()
+    // HomePage.renderMovies(movies);
+    // const actors = await APIService.fetchActors();
+    // HomePage.renderActors(actors);
   }
 }
 
@@ -90,6 +91,41 @@ class HomePage {
       actorDiv.appendChild(actorName);
       actorsSection.appendChild(actorDiv);
     });
+  }
+}
+
+// About page content
+// Made by blood, sweat and tears of Ali Rıza Şahin and Ufuk Deniz Demirbilek
+
+// create ul element and append it to the container with this content
+
+// Contents
+// HomePage
+// Filter and Genre Selection
+// Display movies according to genre or filter selected from dropdown menu
+// Single Movie Page
+// Single Movie Details with Trailer and Cast & Crew
+// Every card is linked to either single actor or movie page
+// Actor List Page
+// Display Popular Actors
+// Search
+// For any given input, searches in people and movies, displays all
+// Every card is linked to either single actor or movie page
+class AboutPage {
+  static container = document.getElementById("container");
+  static renderAboutPage() {
+    const aboutPage = document.createElement("div");
+    aboutPage.classList.add("aboutPage");
+    this.container.appendChild(aboutPage);
+    const aboutPageTitle = document.createElement("h1");
+    aboutPageTitle.textContent = "About Us";
+    aboutPage.appendChild(aboutPageTitle);
+    const aboutPageContent = document.createElement("h5");
+    aboutPageContent.textContent = "This project is made by Ayub Abdullah, Dania Dair, Marwa Hakmi for the final project of the course Object Oriented Programming.";
+    aboutPage.appendChild(aboutPageContent);
+    const contentList = document.createElement("ol");
+    contentList.innerHTML = "<li>HomePage<ul><li>Filter and Genre Selection</li><li> Display movies according to genre or filter selected from dropdown menu</li></ul></li><li>Single Movie Page<ul><li>Single Movie Details with Trailer and Cast & Crew</li><li>Every card is linked to either single actor or movie page</li></ul></li><li>Actor List Page<ul><li>Display Popular Actors</li></ul></li><li>Search<ul><li>For any given input, searches in people and movies, displays all</li><li>Every card is linked to either single actor or movie page</li></ul></li>";
+    aboutPage.appendChild(contentList);
   }
 }
 
