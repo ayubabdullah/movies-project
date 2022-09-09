@@ -51,8 +51,13 @@ class APIService {
 class HomePage {
   static container = document.getElementById("container");
   static renderMovies(movies) {
+    const moviesSection = document.createElement("div");
+    moviesSection.classList.add("row", "justify-content-center",
+      "row-cols-1", "row-cols-md-2", "row-cols-lg-3", "g-6");
+    this.container.appendChild(moviesSection);
     movies.forEach((movie) => {
       const movieDiv = document.createElement("div");
+      movieDiv.classList.add("customCard", "col", "col-md-4", "col-sm-6", "my-3");
       const movieImage = document.createElement("img");
       movieImage.src = `${movie.backdropUrl}`;
       const movieTitle = document.createElement("h3");
@@ -60,14 +65,19 @@ class HomePage {
       movieDiv.addEventListener("click", function () {
         Movies.run(movie.id);
       });
-      movieDiv.appendChild(movieTitle);
       movieDiv.appendChild(movieImage);
-      this.container.appendChild(movieDiv);
+      movieDiv.appendChild(movieTitle);
+      moviesSection.appendChild(movieDiv);
     });
   }
   static renderActors(actors) {
+    const actorsSection = document.createElement("div");
+    actorsSection.classList.add("row", "justify-content-center",
+      "row-cols-1", "row-cols-md-2", "row-cols-lg-6", "g-6");
+    this.container.appendChild(actorsSection);
     actors.forEach((actor) => {
       const actorDiv = document.createElement("div");
+      actorDiv.classList.add("customCard", "col", "col-md-4", "col-sm-6");
       const actorImage = document.createElement("img");
       actorImage.src = `${actor.profileUrl}`;
       const actorName = document.createElement("h3");
@@ -76,9 +86,9 @@ class HomePage {
         Actors.run(actor);
       });
 
-      actorDiv.appendChild(actorName);
       actorDiv.appendChild(actorImage);
-      this.container.appendChild(actorDiv);
+      actorDiv.appendChild(actorName);
+      actorsSection.appendChild(actorDiv);
     });
   }
 }
