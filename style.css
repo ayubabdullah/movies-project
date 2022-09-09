@@ -12,19 +12,15 @@ body {
   object-position: center;
 }
 .movie-header {
-  background: var(--bg-img) no-repeat center center fixed;
+  background: var(--bg-img) no-repeat center center;
   background-size: cover;
-  height: 100vh;
   z-index: -1;
 }
 
 .black-layer {
   background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
+  height: 100%;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
 }
 
@@ -50,6 +46,7 @@ body {
 .actor-movie,
 .actor-crew {
   height: 45vh;
+  cursor: pointer;
 }
 #actor-movie-poster,
 #actor-crew-poster {
@@ -57,5 +54,17 @@ body {
   height: 100%;
   border-radius: 25px;
   object-fit: cover;
+  object-position: center;
+}
+.trailer {
+  width: 80vw;
+  height: 80vh;
+  border-radius: 50px;
+}
+#company-logo {
+  max-width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  object-fit: contain;
   object-position: center;
 }
