@@ -1,61 +1,208 @@
-@import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
 body {
-  font-family: "Mate SC", Poppins, sans-serif;
-}
-#movie-backdrop,
-#actor-profile {
-  width: 100%;
-  height: 90vh;
-  margin-top: 5vh;
-  border-radius: 25px;
-  object-fit: cover;
-  object-position: center;
-}
-.movie-header {
-  background: var(--bg-img) no-repeat center center fixed;
-  background-size: cover;
-  height: 100vh;
-  z-index: -1;
-}
-
-.black-layer {
-  background: rgba(0, 0, 0, 0.5);
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-#actors {
-  margin: 24px 16px 0 0;
-}
-
-.actor-page-background {
   background-color: #3d0b37;
-  color: white;
-  padding-bottom: 30px;
 }
-.img-border {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-left: 0;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+.homePageMovieImg {
+  cursor: pointer;
+  border-radius: 90px 90px 0 0;
+  border: solid black 6px;
+  outline: 0.01px solid wheat;
+  transition: all ease-in-out 300s;
+}
+
+.homePageMovieImg:hover {
+  /* border: red solid 50px; */
+  outline: -6.01px solid wheat;
+  transition: all ease-in-out 300s;
+  outline-offset: -6.01px;
+}
+
+.movie-title {
+  color: rgb(247, 231, 202);
+  font-family: Bebas Neue, sans-serif;
+  text-decoration: underline red dotted;
+  font-size: 2rem;
+}
+
+#container h1,
+#container h2,
+#container h3,
+#container h4,
+#container h5,
+#container h6 {
+  font-family: Mate SC, Poppins, sans-serif;
+}
+
+[class="row"] {
+  width: 100%;
+}
+
+#container .homePageMovies {
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  color: white;
+}
+
+#container .homePageMovies h3 {
+  font-family: Bebas Neue, Poppins, sans-serif;
+}
+
+.text-content {
+  font-size: 1.2rem;
+  margin: auto 0;
+}
+
+#poster-wrapper img,
+.movie-card img {
+  border-radius: 30px;
+  cursor: pointer;
   outline: 0.01px solid wheat;
 }
-.first-letter {
-  font-size: larger;
+
+#poster-wrapper {
+  height: 50%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin: auto 0;
 }
-.actor-movies,
-.actor-crews {
-  margin: 20px 25px;
+
+.hero {
+  color: white;
+  padding: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-.actor-movie,
-.actor-crew {
-  height: 45vh;
-}
-#actor-movie-poster,
-#actor-crew-poster {
-  max-width: 100%;
+
+.hero-color {
+  width: 100%;
   height: 100%;
-  border-radius: 25px;
-  object-fit: cover;
-  object-position: center;
+  background-color: rgba(37, 31, 21, 0.6);
+}
+
+.bg-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.content-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.productionDiv {
+  text-align: center;
+  margin: 0;
+  padding-bottom: 40px;
+}
+
+.universal-nav-bar {
+  display: flex;
+  background-color: #382e2b;
+}
+
+.tmdb-logo {
+  margin-left: 10px;
+  max-width: 6rem;
+}
+
+.search-bar {
+  background-color: #816739;
+}
+.searchResults {
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.searchResult-card {
+  cursor: pointer;
+  padding: 15px;
+}
+
+.movie-card {
+  cursor: pointer;
+  padding: 15px;
+}
+
+p,
+h2,
+h3,
+h4,
+h6,
+li,
+h5 {
+  color: white;
+}
+
+footer {
+  background-color: wheat;
+  margin-top: 30px;
+  font-family: Mate SC, Poppins, sans-serif;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+footer h5 {
+  color: black;
+}
+
+.github {
+  width: 80px;
+  height: 20px;
+}
+
+.linkedin {
+  width: 80px;
+  height: 20px;
+}
+
+.aboutPage {
+  text-align: center;
+}
+
+.nav-link {
+  text-align: center;
+}
+
+.dropdown-item {
+  text-align: center;
 }

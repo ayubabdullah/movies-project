@@ -1,19 +1,351 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mate+SC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Movie</title>
-</head>
+  </head>
 
-<body>
-    <div id="container">
-    </div>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container pt-0 px-3 px-sm-0 d-flex flex-row">
+        <!-- Logo and toggler button -->
+        <a
+          class="navbar-brand m-0"
+          href="https://www.themoviedb.org/"
+          target="_blank"
+          ><img
+            class="img-fluid"
+            width="140"
+            src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"
+            alt="TMBD logo"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active d-flex align-items-center">
+              <a
+                class="nav-link h5 m-0"
+                href="#"
+                onclick="App.run('now_playing')"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item active d-flex align-items-center">
+              <a class="nav-link h5 m-0" href="#" onclick="#">Actors</a>
+            </li>
+            <li class="dropdown d-flex align-items-center">
+              <a
+                class="nav-link h5 dropdown-toggle m-0"
+                href="#"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Movie Genres
+              </a>
+
+              <ul class="dropdown-menu position-absolute">
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(28)"
+                    >Action</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(12)"
+                    >Adventure</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(16)"
+                    >Animation</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(35)"
+                    >Comedy</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(80)"
+                    >Crime</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(99)"
+                    >Documentary</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(18)"
+                    >Drama</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(10751)"
+                    >Family</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(14)"
+                    >Fantasy</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(36)"
+                    >History</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(27)"
+                    >Horror</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(10432)"
+                    >Music</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(9648)"
+                    >Mystery</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(10749)"
+                    >Romance</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(878)"
+                    >Sci-Fi</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(53)"
+                    >Thriller</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(10770)"
+                    >TV Movie</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(10752)"
+                    >War</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run(37)"
+                    >Western</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown d-flex align-items-center">
+              <a
+                class="nav-link h5 dropdown-toggle m-0"
+                href="#"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Filter
+              </a>
+              <ul class="dropdown-menu position-absolute">
+                <li>
+                  <a class="dropdown-item" href="#" onclick="App.run('popular')"
+                    >Popular</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onclick="App.run('top_rated')"
+                    >Top Rated</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onclick="App.run('now_playing')"
+                    >Now Playing</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="#"
+                    onclick="App.run('upcoming')"
+                    >Up Coming</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a
+                class="nav-link h5 m-0"
+                href="#"
+                onclick="AboutPage.renderAboutPage()"
+                >About</a
+              >
+            </li>
+          </ul>
+          <form
+            class="form-inline m-lg-3 my-lg-0 offset-lg-2 offset-xl-3 d-flex"
+          >
+            <input
+              class="form-control mr-sm-2"
+              id="search"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-outline-success my-2 my-sm-0"
+              id="submit"
+              type="submit"
+            >
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div id="container" class="container-fluid"></div>
+
+    <footer class="p-4">
+      <p class="text-center" style="color: black; font-size: 24px">
+        This website had been created by the collaboration of Dania Diar & ...
+      </p>
+      <div class="w-100 row" style="border: 1.5px solid #432d2d">
+        <div class="d-flex flex-column text-center p-4 col-12 col-sm-6">
+          <h5>Dania Diar</h5>
+          <div class="footer-logos" style="margin-bottom: 15px">
+            <a class="text-center mx-2" href="https://github.com/dania-diar">
+              <img
+                class="github"
+                alt="github logo"
+                src="logos/600px-GitHub_logo_2013.svg.png"
+              />
+            </a>
+            <a
+              class="text-center mx-2"
+              href="https://www.linkedin.com/in/dania-deyar-097558243/"
+            >
+              <img
+                class="linkedin"
+                alt="linkedin logo"
+                src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg"
+              />
+            </a>
+          </div>
+          <div>
+            <a
+              style="font-family: Poppins sans-serif"
+              href="dania.deyar@gmail.com"
+              >dania.deyar@gmail.com</a
+            >
+          </div>
+        </div>
+
+        <div class="d-flex flex-column text-center p-4 col-12 col-sm-6">
+          <h5>Ayoub</h5>
+          <div class="footer-logos" style="margin-bottom: 15px">
+            <a class="text-center mx-2" href="#">
+              <img
+                class="github"
+                alt="github logo"
+                src="logos/600px-GitHub_logo_2013.svg.png"
+              />
+            </a>
+            <a class="text-center mx-2" href="#">
+              <img
+                class="linkedin"
+                alt="linkedin logo"
+                src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg"
+              />
+            </a>
+          </div>
+          <div>
+            <a style="font-family: Poppins sans-serif" href="#"></a>
+          </div>
+        </div>
+
+        <div class="d-flex flex-column text-center p-4 col-12 col-sm-6">
+          <h5>Marwa</h5>
+
+          <div class="footer-logos" style="margin-bottom: 15px">
+            <a class="text-center mx-2" href="#">
+              <img
+                class="github"
+                alt="github logo"
+                src="logos/600px-GitHub_logo_2013.svg.png"
+              />
+            </a>
+
+            <a class="text-center mx-2" href="#">
+              <img
+                class="linkedin"
+                alt="linkedin logo"
+                src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg"
+              />
+            </a>
+          </div>
+
+          <div>
+            <a style="font-family: Poppins sans-serif" href="#">#</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
     <script src="./oop-script.js"></script>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
