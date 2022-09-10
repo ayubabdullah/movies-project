@@ -3,10 +3,11 @@
 class App {
   static async run() {
     AboutPage.renderAboutPage()
-    // const movies = await APIService.fetchMovies()
-    // HomePage.renderMovies(movies);
-    // const actors = await APIService.fetchActors();
-    // HomePage.renderActors(actors);
+    const movies = await APIService.fetchMovies();
+    HomePage.renderMovies(movies);
+    const actors = await APIService.fetchActors();
+    HomePage.renderActors(actors);
+
   }
 }
 
@@ -24,6 +25,18 @@ class APIService {
     const data = await response.json();
     return new Movie(data);
   }
+  static async fetchMovieTrailer(movieId) {
+    const url = APIService._constructUrl(`movie/${movieId}/videos`);
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  }
+  static async fetchMovieRecommendations(movieId) {
+    const url = APIService._constructUrl(`movie/${movieId}/recommendations`);
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  }
   static async fetchActors() {
     const url = APIService._constructUrl(`person/popular`);
     const response = await fetch(url);
@@ -38,6 +51,12 @@ class APIService {
   }
   static async fetchActorMovies(actorId) {
     const url = APIService._constructUrl(`person/${actorId}/movie_credits`);
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  }
+  static async fetchMovieActors(movieId) {
+    const url = APIService._constructUrl(`movie/${movieId}/credits`);
     const response = await fetch(url);
     const data = await response.json();
     return data;
@@ -84,7 +103,7 @@ class HomePage {
       const actorName = document.createElement("h3");
       actorName.textContent = `${actor.name}`;
       actorImage.addEventListener("click", function () {
-        Actors.run(actor);
+        Actors.run(actor.id);
       });
 
       actorDiv.appendChild(actorImage);
@@ -131,8 +150,17 @@ class AboutPage {
 
 class Movies {
   static async run(movieId) {
-    console.log(movieId);
     const movieData = await APIService.fetchMovie(movieId);
+    const movieActors = await APIService.fetchMovieActors(movieId);
+    const movieTrailer = await APIService.fetchMovieTrailer(movieId);
+    const movieRecommendations = await APIService.fetchMovieRecommendations(
+      movieId
+    );
+    movieData.actors = movieActors.cast.map((actor) => new Actor(actor));
+    movieData.trailer = movieTrailer.results[0];
+    movieData.recommendations = movieRecommendations.results.map(
+      (movie) => new Movie(movie)
+    );
     MoviePage.renderMovieSection(movieData);
     APIService.fetchActors(movieData);
   }
@@ -143,9 +171,6 @@ class MoviePage {
   static renderMovieSection(movie) {
     MovieSection.renderMovie(movie);
   }
-  static renderActorSection(actor) {
-    MovieSection.renderActor(actor);
-  }
 }
 
 class MovieSection {
@@ -155,20 +180,108 @@ class MovieSection {
         <div class='black-layer'>
           <div class="row ml-2">
             <div class="col-md-4">
-              <img id="movie-backdrop" class="img-border" src=${movie.backdropUrl}>
+              <img id="movie-backdrop" class="img-border" src=${
+                movie.posterUrl
+              }>
             </div>
             <div class="col-md-8 d-flex flex-column justify-content-center align-items-start text-white">
               <h2 id="movie-title">${movie.title}</h2>
-              <p id="genres">${movie.genres}</p>
-              <p id="movie-release-date">${movie.releaseDate}</p>
-              <p id="movie-runtime">${movie.runtime}</p>
+              <p id="genres"><span class="text-uppercase">genres: </span>${movie.genres.map(
+                (genre) => ` <span>${genre.name}</span>`
+              )}</p>
+              <p id="vote"><span class="text-uppercase">vote count: </span>${
+                movie.voteCount
+              }</p>
+              <p><span class="text-uppercase">vote average: </span>${
+                movie.voteAverage
+              }</p>
+              <p id="spoken-language"><span class="text-uppercase">Spoken Language: </span>${movie.spokenLanguages.map(
+                (spokenLanguage) => ` <span>${spokenLanguage.name}</span>`
+              )}</p>
+              <p id="movie-releaseDate"><span class="text-uppercase">release Date: </span>${
+                movie.releaseDate
+              }</p>
+              <p id="movie-runtime"><span class="text-uppercase">runtime: </span>${
+                movie.runtime
+              }</p>
               <h3>Overview:</h3>
               <p id="movie-overview">${movie.overview}</p>
             </div>
           </div>
         </div>
       </div>
-      <h3>Actors:</h3>
+      <div class="actor-page-background pt-2 d-flex flex-column justify-content-center align-items-center">
+        <h3 class = "text-uppercase mt-3"><span class="first-letter">A</span>ctors</h3>
+        ${MovieSection.renderMovieActors(movie.actors)}
+        <h3 class = "text-uppercase mt-3"><span class="first-letter">T</span>railer</h3>
+        <iframe class="trailer" src="https://www.youtube.com/embed/${
+          movie.trailer.key
+        }" allowfullscreen=""></iframe>
+        <h3 class = "text-uppercase mt-3"><span class="first-letter">M</span>ovies you might like</h3>
+        ${MovieSection.renderMovieRecommendations(movie.recommendations)}
+        <h3 class = "text-uppercase mt-3"><span class="first-letter">P</span>roduction <span class="first-letter">C</span>ompanies</h3>
+        ${MovieSection.renderMovieCompanies(movie.customProductionCompanies)}
+      </div>
+    `;
+  }
+  static renderMovieActors(movieActors) {
+    return `
+        <div class="actor-movies">
+          <div class="row justify-content-center">
+            ${movieActors
+              .slice(0, 6)
+              .map((actor) => {
+                return `
+              <div class="col-md-2 col-sm-4 col-6 actor-movie text-center mb-5 pointer" onclick="Actors.run(${actor.id})">
+                <img id="actor-movie-poster" class="img-border" src=${actor.profileUrl} alt=${actor.name}>
+                <p>${actor.name}</p>
+              </div>
+              `;
+              })
+              .join("")}
+          </div>
+        </div>
+      
+    `;
+  }
+  static renderMovieRecommendations(movieRecommendations) {
+    return `
+      
+        <div class="actor-movies">
+          <div class="row justify-content-center">
+            ${movieRecommendations
+              .slice(0, 6)
+              .map((movie) => {
+                return `
+              <div class="col-md-2 col-sm-4 col-6 actor-movie text-center mb-5" onclick="Movies.run(${movie.id})">
+                <img id="actor-movie-poster" class="img-border" src=${movie.posterUrl} alt=${movie.title}>
+                <p>${movie.title}</p>
+              </div>
+              `;
+              })
+              .join("")}
+          </div>
+        </div>
+      
+    `;
+  }
+  static renderMovieCompanies(movieCompanies) {
+    return `
+        <div class="actor-movies">
+          <div class="row justify-content-center">
+            ${movieCompanies
+              .map((company) => {
+                return `
+              <div class="col-md-4 col-6 actor-movie text-center mb-5">
+                <p>${company.name}</p>
+                <img id="company-logo" src=${company.logo} alt=${company.name}>
+              </div>
+              `;
+              })
+              .join("")}
+          </div>
+        </div>
+      
     `;
   }
 }
@@ -182,10 +295,29 @@ class Movie {
     this.runtime = json.runtime + " minutes";
     this.overview = json.overview;
     this.backdropPath = json.backdrop_path;
+    this.posterPath = json.poster_path;
+    this.productionCompanies = json.production_companies;
+    this.voteCount = json.vote_count;
+    this.voteAverage = json.vote_average;
+    this.spokenLanguages = json.spoken_languages;
+    this.genres = json.genres;
   }
 
   get backdropUrl() {
     return this.backdropPath ? Movie.BACKDROP_BASE_URL + this.backdropPath : "";
+  }
+  get posterUrl() {
+    return this.posterPath ? Movie.BACKDROP_BASE_URL + this.posterPath : "";
+  }
+  get customProductionCompanies() {
+    return this.productionCompanies
+      ? this.productionCompanies.map((productionCompanie) => {
+          return {
+            name: productionCompanie.name,
+            logo: Movie.BACKDROP_BASE_URL + productionCompanie.logo_path,
+          };
+        })
+      : "";
   }
 }
 
@@ -253,7 +385,7 @@ class ActorSection {
               .map((movie) => {
                 return `
               <div class="col-md-2 col-sm-4 col-6 actor-movie text-center mb-5" onclick="Movies.run(${movie.id})">
-                <img id="actor-movie-poster" class="img-border" src=${movie.backdropUrl} alt=${movie.title}>
+                <img id="actor-movie-poster" class="img-border" src=${movie.posterUrl} alt=${movie.title}>
                 <p>${movie.title}</p>
               </div>
               `;
@@ -273,7 +405,7 @@ class ActorSection {
               .map((crew) => {
                 return `
               <div class="col-md-2 col-sm-4 col-6 actor-crew text-center mb-5" onclick="Movies.run(${crew.id})">
-                <img id="actor-crew-poster" class="img-border" src=${crew.backdropUrl} alt=${crew.title}>
+                <img id="actor-crew-poster" class="img-border" src=${crew.posterUrl} alt=${crew.title}>
                 <p>${crew.title}</p>
               </div>
               `;
@@ -286,10 +418,9 @@ class ActorSection {
 }
 
 class Actors {
-  static async run(actor) {
-    const actorData = await APIService.fetchActor(actor.id);
-
-    const actorRoles = await APIService.fetchActorMovies(actor.id);
+  static async run(actorId) {
+    const actorData = await APIService.fetchActor(actorId);
+    const actorRoles = await APIService.fetchActorMovies(actorId);
     actorData.movies = actorRoles.cast.map((movie) => new Movie(movie));
     actorData.crews = actorRoles.crew.map((movie) => new Movie(movie));
     ActorPage.renderActorSection(actorData);
