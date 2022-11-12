@@ -102,7 +102,7 @@ class HomePage {
       actorImage.src = `${actor.profileUrl}`;
       const actorName = document.createElement("h3");
       actorName.textContent = `${actor.name}`;
-      actorImage.addEventListener("click", function () {
+      actorDiv.addEventListener("click", function () {
         Actors.run(actor.id);
       });
 
@@ -113,7 +113,7 @@ class HomePage {
   }
 }
 
-// About page content
+// About page Me
 // Made by blood, sweat and tears of Ali Rıza Şahin and Ufuk Deniz Demirbilek
 
 // create ul element and append it to the container with this content
